@@ -15,7 +15,7 @@
  * @copyright  2026 PayzCore
  * @license    MIT
  * @link       https://payzcore.com
- * @version    1.0.0
+ * @version    1.0.1
  */
 
 if (!defined('WHMCS')) {
@@ -829,7 +829,7 @@ function _payzcore_fetchConfig($apiUrl, $apiKey)
         CURLOPT_HTTPHEADER     => [
             'x-api-key: ' . $apiKey,
             'Accept: application/json',
-            'User-Agent: PayzCore-WHMCS/1.0.0',
+            'User-Agent: PayzCore-WHMCS/1.0.1',
         ],
         CURLOPT_SSL_VERIFYPEER => true,
         CURLOPT_SSL_VERIFYHOST => 2,
@@ -1203,7 +1203,7 @@ HTML;
 
     if (!empty($qrCode)) {
         $html .= '<img src="' . htmlspecialchars($qrCode, ENT_QUOTES, 'UTF-8') . '" alt="Payment QR Code" '
-               . 'style="width:200px;height:200px;border-radius:8px;background:#000;" />';
+               . 'style="width:200px;height:200px;border-radius:8px;background:#fff;padding:8px;" />';
     }
 
     $html .= <<<HTML

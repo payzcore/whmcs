@@ -65,7 +65,7 @@
         {if $qr_code}
         <div style="text-align:center;margin-bottom:20px;">
             <img src="{$qr_code}" alt="Payment QR Code"
-                 style="width:200px;height:200px;border-radius:8px;background:#000;" />
+                 style="width:200px;height:200px;border-radius:8px;background:#fff;padding:8px;" />
         </div>
         {/if}
 
