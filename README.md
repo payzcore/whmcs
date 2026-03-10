@@ -1,5 +1,7 @@
 # PayzCore WHMCS Module
 
+[![WHMCS Marketplace](https://img.shields.io/badge/WHMCS-Marketplace-blue)](https://marketplace.whmcs.com/product/8483-payzcore-accept-usdt-usdc-crypto-payments) [![Docs](https://img.shields.io/badge/Docs-docs.payzcore.com-cyan)](https://docs.payzcore.com/integrations/whmcs)
+
 Blockchain transaction monitoring integration for WHMCS. Accept stablecoin payments (USDT/USDC) on multiple networks (TRC20, BEP20, ERC20, Polygon, Arbitrum) through your WHMCS billing system.
 
 PayzCore is a **non-custodial** monitoring API -- it watches blockchain addresses for incoming transfers and notifies your WHMCS installation via webhooks. It does not hold, transmit, or custody any funds.
