@@ -1,7 +1,7 @@
 {
     "name": "payzcore/whmcs-module",
     "description": "PayzCore WHMCS integration module for blockchain transaction monitoring (USDT/USDC on TRC20, BEP20, ERC20, Polygon, Arbitrum)",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "type": "whmcs-gateway",
     "license": "MIT",
     "authors": [

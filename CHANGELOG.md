@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2 — 2026-10-15
+- Fixed: after a payment expired or was cancelled, "pay again" got the same expired payment back (PayzCore treats a repeated `external_order_id` as the same order). A new attempt now uses `WHMCS-{invoiceId}-r{8 hex}`; the callback accepts both formats.
+- `composer.json` version aligned with the module header.
+
 ## 1.0.1 — 2026-03-07
 - Fixed QR code visibility on light backgrounds (standard black-on-white QR)
 

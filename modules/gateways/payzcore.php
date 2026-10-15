@@ -15,7 +15,7 @@
  * @copyright  2026 PayzCore
  * @license    MIT
  * @link       https://payzcore.com
- * @version    1.0.1
+ * @version    1.0.2
  */
 
 if (!defined('WHMCS')) {
@@ -312,6 +312,13 @@ function payzcore_link($params)
     // Check for existing PayzCore payment ID stored for this invoice
     $existingPaymentId = _payzcore_getStoredPaymentId($invoiceId);
 
+    // external_order_id for a new payment. PayzCore returns the existing payment
+    // (any status, expired included) for a repeated external_order_id, so a retry
+    // after expiry/cancellation needs a new id: WHMCS-{invoiceId}-r{hash of the
+    // previous payment id}. Deterministic per attempt, so a page reload is still
+    // idempotent.
+    $externalOrderId = 'WHMCS-' . $invoiceId;
+
     $api = new PayzCoreApi($apiUrl, $apiKey);
 
     try {
@@ -332,6 +339,7 @@ function payzcore_link($params)
 
             // If expired or cancelled, create a new one (fall through to network selection or creation)
             if (in_array($payment['status'], ['expired', 'cancelled'])) {
+                $externalOrderId = 'WHMCS-' . $invoiceId . '-r' . substr(hash('sha256', (string)$existingPaymentId), 0, 8);
                 $existingPaymentId = null;
             } else {
                 // Load static wallet fields from stored mapping
@@ -384,7 +392,7 @@ function payzcore_link($params)
             'network'           => $network,
             'token'             => $token,
             'external_ref'      => 'whmcs-client-' . $clientId,
-            'external_order_id' => 'WHMCS-' . $invoiceId,
+            'external_order_id' => $externalOrderId,
             'expires_in'        => $expirySeconds,
             'metadata'          => [
                 'invoiceId' => $invoiceId,
@@ -829,7 +837,7 @@ function _payzcore_fetchConfig($apiUrl, $apiKey)
         CURLOPT_HTTPHEADER     => [
             'x-api-key: ' . $apiKey,
             'Accept: application/json',
-            'User-Agent: PayzCore-WHMCS/1.0.1',
+            'User-Agent: PayzCore-WHMCS/1.0.2',
         ],
         CURLOPT_SSL_VERIFYPEER => true,
         CURLOPT_SSL_VERIFYHOST => 2,

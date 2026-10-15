@@ -127,10 +127,11 @@ $timestamp      = isset($payload['timestamp']) ? $payload['timestamp'] : '';
 // 3. Extract WHMCS Invoice ID from external_order_id
 // ---------------------------------------------------------------------------
 
-// We set external_order_id as "WHMCS-{invoiceId}" when creating the monitoring request
+// We set external_order_id as "WHMCS-{invoiceId}" when creating the monitoring request,
+// or "WHMCS-{invoiceId}-r{8 hex}" for a new attempt after an expired/cancelled payment
 $invoiceId = 0;
 
-if (preg_match('/^WHMCS-(\d+)$/', $externalOrder, $matches)) {
+if (preg_match('/^WHMCS-(\d+)(?:-r[0-9a-f]{8})?$/', $externalOrder, $matches)) {
     $invoiceId = intval($matches[1]);
 }
 
